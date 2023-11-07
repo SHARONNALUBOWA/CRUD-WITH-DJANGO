@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}    
+
+            <h1>Edit - {{tenant}}</h1>
+        
+            <div class="container">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form|crispy}}
+
+                    <input type="submit" class="btn btn-success">
+                    <a class="btn btn_primary" href="{% url 'add_tenant_page' %}">Cancel</a>
+
+                    {% if message %}
+                         {{message}}
+                    {% endif %}
+                </form>
+            </div>
+   
+{% endblock content %}

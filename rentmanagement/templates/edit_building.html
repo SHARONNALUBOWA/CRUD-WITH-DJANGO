@@ -1,0 +1,23 @@
+{% extends './base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}    
+    
+
+        <h1>Edit - {{building}}</h1>
+        
+        <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form|crispy}}
+
+                <input type="submit" class="btn btn-success">
+                <a class="btn btn_primary" href="{% url 'add_building_page' %}">Cancel</a>
+            </form>
+
+            {% if message %}
+              {{message}}
+            {% endif %}
+                
+        </div>
+
+{% endblock content %}

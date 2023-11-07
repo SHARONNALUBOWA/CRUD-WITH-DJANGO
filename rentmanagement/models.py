@@ -13,7 +13,7 @@ class Owner(models.Model):
     contact = models.CharField(max_length=10)
     address = models.CharField(max_length=50, null=True, blank=True, default="N/A")
     def __str__(self):
-        return f"{self.owner_name}-{self.gender}-{self.contact}-{self.address}"
+        return f"{self.owner_name}-{self.gender}"
     
     
 class Building(models.Model):
@@ -22,14 +22,16 @@ class Building(models.Model):
     caretaker_name = models.CharField(max_length=50)
     caretaker_contact = models.CharField(max_length=10)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+
+    
     def __str__(self):
-        return f"{self.building_name}-{self.location}-{self.caretaker_name}-{self.caretaker_contact}-{self.owner}"
+        return f"{self.building_name}-{self.owner}"
     
     
 class Rental(models.Model):
-    no_of_rooms = models.IntegerField
+    no_of_rooms = models.IntegerField(default=0)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
-    price = models.IntegerField
+    price = models.IntegerField(default=0)
     status_options = [
         ("O", "Occupied"),
         ("V", "Vacant"),
@@ -37,7 +39,7 @@ class Rental(models.Model):
     status = models.CharField(max_length=2, choices=status_options)
 
     def __str__(self):
-        return f"{self.no_of_rooms}-{self.building}-{self.price}-{self.status}"
+        return f"{self.building}-{self.status}"
     
     
 class Tenant(models.Model):
@@ -47,13 +49,13 @@ class Tenant(models.Model):
     rental = models.ForeignKey(Rental, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.tenant_name}-{self.gender}-{self.contact}-{self.rental}"
+        return f"{self.tenant_name}"
 
 
 class Payment(models.Model):
-    payment_date = models.DateField(auto_now_add=False)
+    payment_date = models.DateField(auto_now_add=True)
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
     payment_for = models.CharField(max_length=12)
-    amount_paid = models.IntegerField
+    amount_paid = models.IntegerField(default=0)
     def __str__(self):
-        return f"{self.payment_date}-{self.tenant}-{self.payment_for}-{self.amount_paid}"
+        return f"{self.payment_date}-{self.amount_paid}"
