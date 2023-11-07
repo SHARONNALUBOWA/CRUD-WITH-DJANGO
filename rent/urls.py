@@ -22,6 +22,7 @@ from rentmanagement.views import login_view
 from rentmanagement.views import payment_view
 from rentmanagement.views import building_view
 from rentmanagement.views import tenant_view
+from rentmanagement.views import add_building_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +30,6 @@ urlpatterns = [
     path('login/', login_view, name='login_page'),
     path('payment/', payment_view, name='payment_page'),
     path('building/', building_view, name='building_page'),
-    path('tenant/', tenant_view, name='tenant_page')
+    path('tenant/', tenant_view, name='tenant_page'),
+    path('add_building/', tenant_view, name='add_building_page')
 ]
